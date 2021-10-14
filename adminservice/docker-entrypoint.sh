@@ -7,7 +7,7 @@ if [ ! $? -eq 0 ]; then
 fi
 
 export SPRING_DATASOURCE_USERNAME="root"
-export SPRING_DATASOURCE_PASSWORD="$MYSQL_ROOT_PASSWORD"
+export SPRING_DATASOURCE_PASSWORD="$MYSQL_PASSWORD"
 
 MYSQL_HOST=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/service/mysql.npool.top | jq .Address`
 if [ ! $? -eq 0 ]; then
