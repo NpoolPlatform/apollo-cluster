@@ -1,7 +1,7 @@
 FROM apolloconfig/apollo-adminservice:1.9.1
 
-RUN apt-get update -y
-RUN apt-get install curl -y
+RUN apk add curl -y
+RUN apk add jq -y
 
 COPY .docker-tmp/consul /usr/bin/consul
 
