@@ -22,6 +22,6 @@ if [ ! $? -eq 0 ]; then
 fi
 
 MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
-export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloConfigDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true
+export SPRING_DATASOURCE_URL=jdbc:mysql://root:$MYSQL_PASSWORD@$MYSQL_HOST:$MYSQL_PORT/ApolloConfigDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true
 
 /apollo-adminservice/scripts/startup.sh $@
