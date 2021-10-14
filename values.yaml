@@ -14,3 +14,6 @@ adminService:
 
 configdb:
   connectionStringProperties: characterEncoding=utf8&useSSL=false
+  dbName: "root"
+  password: "root"
+  host: "mysql"
