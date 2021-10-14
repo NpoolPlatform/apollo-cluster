@@ -23,4 +23,4 @@ fi
 
 export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloConfigDB?characterEncoding=utf8
 
-/apollo-configservice/scripts/startup.sh $@
+/apollo-adminservice/scripts/startup.sh $@
