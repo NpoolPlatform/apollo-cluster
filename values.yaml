@@ -1,0 +1,16 @@
+configService:
+  replicaCount: 3
+  image:
+    repository: entropypool/apollo-configservice
+    tag: 1.9.1
+    pullPolicy: Always
+
+adminService:
+  replicaCount: 3
+  image:
+    repository: entropypool/apollo-adminservice
+    tag: 1.9.1
+    pullPolicy: Always
+
+configdb:
+  connectionStringProperties: characterEncoding=utf8&useSSL=false

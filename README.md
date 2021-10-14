@@ -1,2 +1,0 @@
-# apollo-cluster
-Jenkinsfile

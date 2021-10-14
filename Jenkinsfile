@@ -1,60 +1,46 @@
 pipeline {
   agent any
-  tools {
-    go 'go'
-  }
   environment {
     GOPROXY = 'https://goproxy.cn,direct'
   }
+  tools {
+    go 'go'
+  }
   stages {
-
-    stage('Check deps tools') {
+    stage('Clone apollo cluster') {
       steps {
-        script {
-          if (!fileExists("/usr/bin/helm")) {
-            sh 'mkdir -p $HOME/.helm'
-            if (!fileExists("$HOME/.helm/.helm-src")) {
-              sh 'git clone https://github.com/helm/helm.git $HOME/.helm/.helm-src'
-            }
-            sh 'cd $HOME/.helm/.helm-src; make; cp bin/helm /usr/bin/helm'
-            sh 'helm version'
-          }
-        }
+        git(url: scm.userRemoteConfigs[0].url, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'KK-github-key', poll: true)
       }
     }
 
-    stage('Helm install apollo-service') {
+    stage('Build apollo image') {
+      when {
+        expression { BUILD_TARGET == 'true' }
+      }
       steps {
-        sh 'echo "configdb:\n" > ./apollo-service.values.yaml'
-        sh "echo \"  host: \"$MYSQL_HOST\"\n\" >> ./apollo-service.values.yaml"
-        sh "echo \"  dbName: ApolloConfigDB\n\" >> ./apollo-service.values.yaml"
-        sh "echo \"  connectionStringProperties: characterEncoding=utf8&useSSL=false\n\" >> ./apollo-service.values.yaml"
-        sh "echo \"  service:\n\">> ./apollo-service.values.yaml"
-        sh "echo \"    enabled: false\">> ./apollo-service.values.yaml"
-        sh "echo \"configService:\n\" >> ./apollo-service.values.yaml"
-        sh "echo \"  replicaCount: $CFS_COPIES\n\" >> ./apollo-service.values.yaml"
-        sh "echo \"adminService:\n\" >> ./apollo-service.values.yaml"
-        sh "echo \"  replicaCount: $ADM_COPIES\n\" >> ./apollo-service.values.yaml"
-        sh "echo \"\n\" >> ./apollo-service.values.yaml"
-        sh "helm uninstall $SVC_NAME-svc -n $K8S_NAMESPACE || true"
-        sh "helm install $SVC_NAME-svc -f ./apollo-service.values.yaml -n $K8S_NAMESPACE ./apollo-service"
+        sh 'mkdir -p configservice/.docker-tmp; cp /usr/bin/consul configservice/.docker-tmp'
+        sh 'cd configservice; docker build -t entropypool/apollo-configservice:1.9.1 .'
+        sh 'mkdir -p adminservice/.docker-tmp; cp /usr/bin/consul adminservice/.docker-tmp'
+        sh 'cd adminservice; docker build -t entropypool/apollo-adminservice:1.9.1 .'
       }
     }
 
-    stage('Install apollo-portal') {
+    stage('Release pollo image') {
+      when {
+        expression { RELEASE_TARGET == 'true' }
+      }
       steps {
-        sh "helm uninstall $SVC_NAME-portal -n $K8S_NAMESPACE || true"
-        sh "helm install $SVC_NAME-portal \
-    --set configdb.host=\"$MYSQL_HOST\" \
-    --set configdb.userName=root \
-    --set configdb.password='' \
-    --set configdb.service.enabled=false \
-    --set config.envs=\"dev\\,pro\" \
-    --set config.metaServers.dev=http://$SVC_NAME-portal-apollo-configservice:8080 \
-    --set config.metaServers.pro=http://$SVC_NAME-portal-apollo-configservice:8080 \
-    --set replicaCount=1 \
-    -n $K8S_NAMESPACE \
-    ./apollo-portal"
+        sh 'docker push entropypool/apollo-configservice:1.9.1'
+        sh 'docker push entropypool/apollo-adminservice:1.9.1'
+      }
+    }
+
+    stage('Deploy apollo cluster') {
+      when {
+        expression { DEPLOY_TARGET == 'true' }
+      }
+      steps {
+        sh 'helm install apollo-service --namespace kube-system -f value.yaml apollo/apollo-service'
       }
     }
   }
