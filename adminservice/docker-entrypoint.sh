@@ -10,4 +10,4 @@ export SPRING_DATASOURCE_URL=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/
 export SPRING_DATASOURCE_USERNAME="root"
 export SPRING_DATASOURCE_PASSWORD="$MYSQL_ROOT_PASSWORD"
 
-/apollo-configservice/scripts/startup.sh $@
+/apollo-adminservice/scripts/startup.sh $@
