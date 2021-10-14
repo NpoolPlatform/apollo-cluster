@@ -1,5 +1,6 @@
 configService:
   replicaCount: 3
+  fullNameOverride: "apollo-configservice"
   image:
     repository: entropypool/apollo-configservice
     tag: 1.9.1
@@ -7,6 +8,7 @@ configService:
 
 adminService:
   replicaCount: 3
+  fullNameOverride: "apollo-adminservice"
   image:
     repository: entropypool/apollo-adminservice
     tag: 1.9.1
