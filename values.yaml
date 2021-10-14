@@ -1,5 +1,6 @@
 configService:
   replicaCount: 3
+  fullNameOverride: "apollo-configservice"
   image:
     repository: entropypool/apollo-configservice
     tag: 1.9.1
@@ -7,6 +8,7 @@ configService:
 
 adminService:
   replicaCount: 3
+  fullNameOverride: "apollo-adminservice"
   image:
     repository: entropypool/apollo-adminservice
     tag: 1.9.1
@@ -14,6 +16,6 @@ adminService:
 
 configdb:
   connectionStringProperties: characterEncoding=utf8&useSSL=false
-  dbName: "root"
+  userName: "root"
   password: "root"
   host: "mysql"
