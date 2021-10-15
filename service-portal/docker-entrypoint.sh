@@ -6,7 +6,7 @@ export SPRING_DATASOURCE_PASSWORD="$MYSQL_PASSWORD"
 if [ "$DEBUG_MODE" == "fixed" ]; then
   MYSQL_HOST='mysql-0.mysql.kube-system.svc.cluster.local'
 elif [ "$DEBUG_MODE" == "override" ]; then
-  # nothing
+  echo "nothing"
 else
   MYSQL_HOST=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/service/mysql.npool.top | jq .Address`
 fi
