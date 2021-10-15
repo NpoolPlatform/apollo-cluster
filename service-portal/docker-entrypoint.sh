@@ -18,7 +18,7 @@ else
 fi
 
 MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
-export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloPortalDB?characterEncoding=utf8&useSSL=false&autoReconnect=true&useUnicode=true&user=root&password=$MYSQL_PASSWORD
+export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloPortalDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true&user=root&password=$MYSQL_PASSWORD
 
 
 /apollo-portal/scripts/startup.sh $@

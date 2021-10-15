@@ -79,7 +79,7 @@ pipeline {
       }
       steps {
         sh 'helm install apollo-service --namespace kube-system -f values.yaml ./chart-service'
-        sh 'helm install apollo-portal --namespace kube-system -f values.yaml ./chart-portal'
+        sh 'helm install apollo-portal --namespace kube-system ./chart-portal'
       }
     }
   }

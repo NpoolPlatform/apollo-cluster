@@ -65,11 +65,11 @@ config:
 
 portaldb:
   name: apollo-portaldb
-  host: "wasnt.set.here"
+  host: "mysql"
   port: 3306
   dbName: ApolloPortalDB
-  userName: "wasnt.set.here"
-  password: "wasnt.set.here"
+  userName: "root"
+  password: "root"
   connectionStringProperties: characterEncoding=utf8&useSSL=false
   service:
     # whether to create a Service for this host or not

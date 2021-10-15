@@ -4,7 +4,7 @@ configService:
   image:
     repository: entropypool/apollo-configservice
     tag: 1.9.1
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
 
 adminService:
   replicaCount: 3
@@ -12,7 +12,7 @@ adminService:
   image:
     repository: entropypool/apollo-adminservice
     tag: 1.9.1
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
 
 configdb:
   connectionStringProperties: characterEncoding=utf8&useSSL=false
