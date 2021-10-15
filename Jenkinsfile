@@ -60,12 +60,16 @@ pipeline {
               break
             fi
           done
+        '''.stripIndent())
+        sh(returnStdout: true, script: '''
           while true; do
             docker push entropypool/apollo-configservice:1.9.1
             if [ $? -eq 0 ]; then
               break
             fi
           done
+        '''.stripIndent())
+        sh(returnStdout: true, script: '''
           while true; do
             docker push entropypool/apollo-adminservice:1.9.1
             if [ $? -eq 0 ]; then
