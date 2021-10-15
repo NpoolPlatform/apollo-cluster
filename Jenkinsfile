@@ -34,13 +34,6 @@ pipeline {
       }
     }
 
-    stage('Import MySQL files') {
-      steps {
-        sh 'mkdir -p sql/.docker-tmp; cp /usr/bin/consul sql/.docker-tmp'
-        sh 'cd sql; docker build -t entropypool/apollo-sql:1.9.1 .; docker run entropypool/apollo-sql:1.9.1'
-      }
-    }
-
     stage('Build apollo image') {
       when {
         expression { BUILD_TARGET == 'true' }
@@ -60,6 +53,13 @@ pipeline {
       steps {
         sh 'docker push entropypool/apollo-configservice:1.9.1'
         sh 'docker push entropypool/apollo-adminservice:1.9.1'
+      }
+    }
+
+    stage('Import MySQL files') {
+      steps {
+        sh 'mkdir -p sql/.docker-tmp; cp /usr/bin/consul sql/.docker-tmp'
+        sh 'cd sql; docker build -t entropypool/apollo-sql:1.9.1 .; docker run entropypool/apollo-sql:1.9.1'
       }
     }
 
