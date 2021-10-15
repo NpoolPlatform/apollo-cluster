@@ -37,8 +37,8 @@ configService:
   replicaCount: 2
   containerPort: 8080
   image:
-    repository: apolloconfig/apollo-configservice
-    tag: ""
+    repository: entropypool/apollo-configservice
+    tag: "1.9.1"
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
@@ -82,8 +82,8 @@ adminService:
   replicaCount: 2
   containerPort: 8090
   image:
-    repository: apolloconfig/apollo-adminservice
-    tag: ""
+    repository: entropypool/apollo-adminservice
+    tag: "1.9.1"
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:

@@ -56,13 +56,6 @@ pipeline {
       }
     }
 
-    stage('Import MySQL files') {
-      steps {
-        sh 'mkdir -p sql/.docker-tmp; cp /usr/bin/consul sql/.docker-tmp'
-        sh 'cd sql; docker build -t entropypool/apollo-sql:1.9.1 .; docker run entropypool/apollo-sql:1.9.1'
-      }
-    }
-
     stage('Deploy apollo cluster') {
       when {
         expression { DEPLOY_TARGET == 'true' }
