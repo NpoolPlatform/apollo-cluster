@@ -20,3 +20,6 @@ ingress:
     - host: "apollo-portal.internal-devops.development.npool.top"
       paths:
         - /
+configetc:
+  DEBUG_MODE: "override"
+  MYSQL_HOST: "172.20.1.155"

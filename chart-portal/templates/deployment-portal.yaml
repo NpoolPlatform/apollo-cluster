@@ -115,9 +115,9 @@ spec:
                   name: mysql-password-secret
                   key: rootpassword
             - name: DEBUG_MODE
-              value: "override"
+              value: {{ .Values.configetc.DEBUG_MODE }}
             - name: MYSQL_HOST
-              value: "172.20.1.155"
+              value: {{ .Values.configetc.MYSQL_HOST }}
           {{- range $key, $value := .Values.env }}
             - name: {{ $key }}
               value: {{ $value }}
