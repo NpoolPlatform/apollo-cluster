@@ -21,9 +21,6 @@ if [ ! $? -eq 0 ]; then
   exit 1
 fi
 
-mysql -uroot -p$MYSQL_PASSWORD -h $MYSQL_HOST < /apollo-configservice/apolloconfig.sql
-mysql -uroot -p$MYSQL_PASSWORD -h $MYSQL_HOST < /apollo-configservice/apolloportal.sql
-
 MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
 export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloConfigDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true&user=root&password=$MYSQL_PASSWORD
 

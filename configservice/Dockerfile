@@ -9,8 +9,4 @@ RUN mkdir -p /usr/local/bin
 COPY docker-entrypoint.sh /usr/local/bin
 RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
-RUN apk add mysql-client -y
-COPY apolloconfigdb.sql /apollo-configservice/
-COPY apolloportaldb.sql /apollo-configservice/
-
 CMD ["docker-entrypoint.sh"]
