@@ -5,8 +5,6 @@ RUN apk add jq -y
 RUN apk add mysql-client -y
 RUN apk add mysql-client
 
-COPY apolloconfigdb.sql /
-COPY apolloportaldb.sql /
 
 RUN mkdir -p /usr/local/bin
 COPY docker-entrypoint.sh /usr/local/bin

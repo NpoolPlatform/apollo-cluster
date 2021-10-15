@@ -2,6 +2,10 @@ FROM apolloconfig/apollo-configservice:1.9.1
 
 RUN apk add curl -y
 RUN apk add jq -y
+RUN apk add mysql-client -y
+
+COPY apolloconfigdb.sql /
+COPY apolloportaldb.sql /
 
 COPY .docker-tmp/consul /usr/bin/consul
 
