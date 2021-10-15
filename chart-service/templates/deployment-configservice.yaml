@@ -23,8 +23,8 @@ metadata:
 data:
   application-github.properties: |
     spring.datasource.url = jdbc:mysql://{{include "apollo.configdb.serviceName" .}}:{{include "apollo.configdb.servicePort" .}}/{{ .Values.configdb.dbName }}{{ if .Values.configdb.connectionStringProperties }}?{{ .Values.configdb.connectionStringProperties }}{{ end }}
-    spring.datasource.username = {{ required "configdb.userName is required!" .Values.configdb.userName }}
-    spring.datasource.password = {{ required "configdb.password is required!" .Values.configdb.password }}
+    spring.datasource.username = {{ .Values.configdb.userName }}
+    spring.datasource.password = {{ .Values.configdb.password }}
     apollo.config-service.url = {{ include "apollo.configService.serviceUrl" .}}
     apollo.admin-service.url = {{ include "apollo.adminService.serviceUrl" .}}
     {{- if .Values.configService.config.contextPath }}

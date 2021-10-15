@@ -15,13 +15,10 @@
 #
 configdb:
   name: apollo-configdb
-  # apolloconfigdb host
-  host: ""
+  host: "mysql"
   port: 3306
   dbName: ApolloConfigDB
-  # apolloconfigdb user name
-  userName: ""
-  # apolloconfigdb password
+  userName: "do_not_edit_here"
   password: ""
   connectionStringProperties: characterEncoding=utf8
   service:
@@ -39,7 +36,7 @@ configService:
   image:
     repository: entropypool/apollo-configservice
     tag: "1.9.1"
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
     fullNameOverride: ""
@@ -84,7 +81,7 @@ adminService:
   image:
     repository: entropypool/apollo-adminservice
     tag: "1.9.1"
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
     fullNameOverride: ""
