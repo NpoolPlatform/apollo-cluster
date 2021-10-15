@@ -1,0 +1,22 @@
+config:
+  envs: "default,remote"
+  metaServers:
+    default: http://apollo-configservice:8080
+    remote: http://apollo-another-configservice:8080
+replicaCount: 1
+ingress:
+  enabled: true
+  annotations: {
+    "nginx.org/websocket-services": "apollo-portal"
+    "nginx.com/sticky-cookie-services": "serviceName=portal srv_id expires=1h path=/"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    "kubernetes.io/ingress.class": "devops-vpn-nginx-internal"
+  }
+  hosts:
+    - host: "apollo-portal.internal-devops.development.npool.top"
+      paths: 
+      - path: /
+        backend:
+          serviceName: apollo-portal
+          servicePort: http
+  tls: []
