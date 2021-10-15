@@ -321,23 +321,23 @@ CREATE TABLE IF NOT EXISTS `Authorities` (
 
 # Config
 # ------------------------------------------------------------
-INSERT INTO `ServerConfig` (`Key`, `Value`, `Comment`)
+INSERT IGNORE INTO `ServerConfig` (`Id`, `Key`, `Value`, `Comment`)
 VALUES
-    ('apollo.portal.envs', 'dev', '可支持的环境列表'),
-    ('organizations', '[{\"orgId\":\"TEST1\",\"orgName\":\"样例部门1\"},{\"orgId\":\"TEST2\",\"orgName\":\"样例部门2\"}]', '部门列表'),
-    ('superAdmin', 'apollo', 'Portal超级管理员'),
-    ('api.readTimeout', '10000', 'http接口read timeout'),
-    ('consumer.token.salt', 'someSalt', 'consumer token salt'),
-    ('admin.createPrivateNamespace.switch', 'true', '是否允许项目管理员创建私有namespace'),
-    ('configView.memberOnly.envs', 'pro', '只对项目成员显示配置信息的环境列表，多个env以英文逗号分隔'),
-    ('apollo.portal.meta.servers', '{}', '各环境Meta Service列表');
+    (1, 'apollo.portal.envs', 'dev', '可支持的环境列表'),
+    (2, 'organizations', '[{\"orgId\":\"TEST1\",\"orgName\":\"样例部门1\"},{\"orgId\":\"TEST2\",\"orgName\":\"样例部门2\"}]', '部门列表'),
+    (3, 'superAdmin', 'apollo', 'Portal超级管理员'),
+    (4, 'api.readTimeout', '10000', 'http接口read timeout'),
+    (5, 'consumer.token.salt', 'someSalt', 'consumer token salt'),
+    (6, 'admin.createPrivateNamespace.switch', 'true', '是否允许项目管理员创建私有namespace'),
+    (7, 'configView.memberOnly.envs', 'pro', '只对项目成员显示配置信息的环境列表，多个env以英文逗号分隔'),
+    (8, 'apollo.portal.meta.servers', '{}', '各环境Meta Service列表');
 
 
-INSERT INTO `Users` (`Username`, `Password`, `UserDisplayName`, `Email`, `Enabled`)
+INSERT IGNORE INTO `Users` (`Id`, `Username`, `Password`, `UserDisplayName`, `Email`, `Enabled`)
 VALUES
-	('apollo', '$2a$10$7r20uS.BQ9uBpf3Baj3uQOZvMVvB1RN3PYoKE94gtz2.WAOuiiwXS', 'apollo', 'apollo@acme.com', 1);
+	(1, 'apollo', '$2a$10$7r20uS.BQ9uBpf3Baj3uQOZvMVvB1RN3PYoKE94gtz2.WAOuiiwXS', 'apollo', 'apollo@acme.com', 1);
 
-INSERT INTO `Authorities` (`Username`, `Authority`) VALUES ('apollo', 'ROLE_user');
+INSERT IGNORE INTO `Authorities` (`Id`, `Username`, `Authority`) VALUES (1, 'apollo', 'ROLE_user');
 
 -- spring session (https://github.com/spring-projects/spring-session/blob/faee8f1bdb8822a5653a81eba838dddf224d92d6/spring-session-jdbc/src/main/resources/org/springframework/session/jdbc/schema-mysql.sql)
 CREATE TABLE IF NOT EXISTS SPRING_SESSION (
