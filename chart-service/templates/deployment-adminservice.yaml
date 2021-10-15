@@ -96,7 +96,9 @@ spec:
                   name: mysql-password-secret
                   key: rootpassword
             - name: DEBUG_MODE
-              value: "fixed"
+              value: "override"
+            - name: MYSQL_HOST
+              value: "172.20.1.155"
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.adminService.config.profiles | quote }}
           {{- range $key, $value := .Values.adminService.env }}
