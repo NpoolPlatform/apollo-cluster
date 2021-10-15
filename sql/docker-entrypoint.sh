@@ -1,10 +1,5 @@
 #!/bin/sh
 
-CONSUL_HTTP_ADDR=${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT} consul services register -address=apollo-configservice.${ENV_CLUSTER_NAMESPACE}.svc.cluster.local -name=apollo-configservice.npool.top -port=8080
-if [ ! $? -eq 0 ]; then
-  echo "FAIL TO REGISTER ME TO CONSUL"
-  exit 1
-fi
 
 MYSQL_HOST=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/service/mysql.npool.top | jq .Address`
 if [ ! $? -eq 0 ]; then
