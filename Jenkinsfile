@@ -63,15 +63,21 @@ pipeline {
       }
     }
 
+    stage('Clean previous deployment') {
+      when {
+        expression { HELM_UNINSTALL == 'true' }
+      }
+      steps {
+        sh 'helm uninstall apollo-service --namespace kube-system || true'
+        sh 'helm uninstall apollo-portal --namespace kube-system || true'
+      }
+    }
+
     stage('Deploy apollo cluster and portal') {
       when {
         expression { DEPLOY_TARGET == 'true' }
       }
       steps {
-        if ( HELM_UNINSTALL == 'true' ) {
-          sh 'helm uninstall apollo-service --namespace kube-system || true'
-          sh 'helm uninstall apollo-portal --namespace kube-system || true'
-        }
         sh 'helm install apollo-service --namespace kube-system -f values.yaml ./chart-service'
         sh 'helm install apollo-portal --namespace kube-system -f values.yaml ./chart-portal'
       }
