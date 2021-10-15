@@ -3,6 +3,7 @@ config:
   metaServers:
     default: http://apollo-configservice:8080
     remote: http://apollo-another-configservice:8080
+  contextPath: /apollo
 replicaCount: 1
 ingress:
   enabled: true
@@ -15,8 +16,5 @@ ingress:
   hosts:
     - host: "apollo-portal.internal-devops.development.npool.top"
       paths: 
-      - path: /
-        backend:
-          serviceName: apollo-portal
-          servicePort: http
+        - /apollo
   tls: []
