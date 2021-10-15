@@ -90,7 +90,7 @@ pipeline {
       steps {
         sh 'helm repo add apollo https://www.apolloconfig.com/charts'
         sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service || helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
-        sh 'helm uninstall apollo-portal || true'
+        sh 'helm uninstall apollo-portal -n kube-system || true'
         sh "helm install apollo-portal \
     --set portaldb.host=$MYSQL_HOST \
     --set portaldb.userName=root \
