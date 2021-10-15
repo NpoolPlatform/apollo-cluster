@@ -7,9 +7,9 @@ replicaCount: 1
 ingress:
   enabled: true
   annotations: {
-    "nginx.org/websocket-services": "apollo-portal"
-    "nginx.com/sticky-cookie-services": "serviceName=portal srv_id expires=1h path=/"
-    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    "nginx.org/websocket-services": "apollo-portal",
+    "nginx.com/sticky-cookie-services": "serviceName=portal srv_id expires=1h path=/",
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true",
     "kubernetes.io/ingress.class": "devops-vpn-nginx-internal"
   }
   hosts:
