@@ -23,6 +23,10 @@ else
   echo "debug info: $MYSQL_HOST:$MYSQL_PORT"
 fi
 
+MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
+export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloConfigDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true&user=root&password=$MYSQL_PASSWORD
+
+
 mysql -uroot -p$MYSQL_PASSWORD -h $MYSQL_HOST < /apolloconfigdb.sql
 mysql -uroot -p$MYSQL_PASSWORD -h $MYSQL_HOST < /apolloportaldb.sql
 if [ ! $? -eq 0 ]; then
@@ -30,7 +34,5 @@ if [ ! $? -eq 0 ]; then
   exit 1
 fi
 
-MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
-export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloConfigDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true&user=root&password=$MYSQL_PASSWORD
 
 /apollo-configservice/scripts/startup.sh $@
