@@ -68,8 +68,8 @@ portaldb:
   host: "wasnt.set.here"
   port: 3306
   dbName: ApolloPortalDB
-  userName: "me_too"
-  password: ""
+  userName: "wasnt.set.here"
+  password: "wasnt.set.here"
   connectionStringProperties: characterEncoding=utf8&useSSL=false
   service:
     # whether to create a Service for this host or not
