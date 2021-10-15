@@ -12,6 +12,10 @@ ingress:
     nginx.ingress.kubernetes.io/session-cookie-conditional-samesite-none: "true"
     nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
     nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+    nginx.org/websocket-services: "apolloportal"
+    nginx.com/sticky-cookie-services: "serviceName=apolloportal srv_id expires=1h path=/"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.class: "devops-vpn-nginx-internal"
   hosts:
     - host: "apollo-portal.internal-devops.development.npool.top"
       paths:
