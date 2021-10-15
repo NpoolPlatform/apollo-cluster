@@ -97,6 +97,8 @@ spec:
                 secretKeyRef:
                   name: mysql-password-secret
                   key: rootpassword
+            - name: DEBUG_MODE
+              value: "fixed"
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.configService.config.profiles | quote }}
           {{- range $key, $value := .Values.configService.env }}

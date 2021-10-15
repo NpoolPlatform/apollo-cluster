@@ -114,6 +114,8 @@ spec:
                 secretKeyRef:
                   name: mysql-password-secret
                   key: rootpassword
+            - name: DEBUG_MODE
+              value: "fixed"
           {{- range $key, $value := .Values.env }}
             - name: {{ $key }}
               value: {{ $value }}
