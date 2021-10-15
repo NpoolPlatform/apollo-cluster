@@ -1,5 +1,7 @@
 FROM apolloconfig/apollo-configservice:1.9.1
 
+RUN apk add curl -y
+RUN apk add jq -y
 RUN apk add mysql-client -y
 RUN apk add mysql-client
 
