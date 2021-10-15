@@ -39,7 +39,7 @@ configService:
   image:
     repository: entropypool/apollo-configservice
     tag: "1.9.1"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   imagePullSecrets: []
   service:
     fullNameOverride: ""
@@ -84,7 +84,7 @@ adminService:
   image:
     repository: entropypool/apollo-adminservice
     tag: "1.9.1"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   imagePullSecrets: []
   service:
     fullNameOverride: ""
