@@ -53,13 +53,26 @@ pipeline {
         expression { RELEASE_TARGET == 'true' }
       }
       steps {
-        sh 'export ALL_PROXY=socks5://172.16.31.128:10808'
-        sh 'export HTTP_PROXY="socks5://172.16.31.128:10808"; export HTTPS_PROXY="socks5://172.16.31.128:10808"'
-        sh 'docker push entropypool/apollo-portal:1.9.1'
-        sh 'docker push entropypool/apollo-configservice:1.9.1'
-        sh 'docker push entropypool/apollo-adminservice:1.9.1'
-        sh 'unset ALL_PROXY'
-        sh 'unset HTTP_PROXY; unset HTTPS_PROXY'
+        sh(returnStdout: true, script: '''
+          while true; do
+            docker push entropypool/apollo-portal:1.9.1
+            if [ $? -eq 0 ]; then
+              break
+            fi
+          done
+          while true; do
+            docker push entropypool/apollo-configservice:1.9.1
+            if [ $? -eq 0 ]; then
+              break
+            fi
+          done
+          while true; do
+            docker push entropypool/apollo-adminservice:1.9.1
+            if [ $? -eq 0 ]; then
+              break
+            fi
+          done
+        '''.stripIndent())
       }
     }
 
