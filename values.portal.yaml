@@ -1,8 +1,7 @@
 config:
-  envs: "default,remote"
+  envs: "default"
   metaServers:
     default: http://apollo-configservice:8080
-    remote: http://apollo-another-configservice:8080
 replicaCount: 1
 ingress:
   enabled: true
