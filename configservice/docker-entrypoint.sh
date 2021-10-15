@@ -31,7 +31,7 @@ mysql -uroot -p$MYSQL_PASSWORD -h $MYSQL_HOST < /apolloconfigdb.sql
 mysql -uroot -p$MYSQL_PASSWORD -h $MYSQL_HOST < /apolloportaldb.sql
 if [ ! $? -eq 0 ]; then
   echo "FAIL TO IMPORT SQL FILE with options $MYSQL_HOST $MYSQL_PORT"
-  exit 1
+  # exit 1
 fi
 
 
