@@ -39,10 +39,12 @@ pipeline {
         expression { BUILD_TARGET == 'true' }
       }
       steps {
-        sh 'mkdir -p configservice/.docker-tmp; cp /usr/bin/consul configservice/.docker-tmp'
-        sh 'cd configservice; docker build -t entropypool/apollo-configservice:1.9.1 .'
-        sh 'mkdir -p adminservice/.docker-tmp; cp /usr/bin/consul adminservice/.docker-tmp'
-        sh 'cd adminservice; docker build -t entropypool/apollo-adminservice:1.9.1 .'
+        sh 'mkdir -p service-config/.docker-tmp; cp /usr/bin/consul service-config/.docker-tmp'
+        sh 'cd service-config; docker build -t entropypool/apollo-configservice:1.9.1 .'
+        sh 'mkdir -p service-admin/.docker-tmp; cp /usr/bin/consul service-admin/.docker-tmp'
+        sh 'cd service-admin; docker build -t entropypool/apollo-adminservice:1.9.1 .'
+        sh 'mkdir -p service-portal/.docker-tmp; cp /usr/bin/consul service-portal/.docker-tmp'
+        sh 'cd service-portal; docker build -t entropypool/apollo-portal:1.9.1 .'
       }
     }
 
@@ -55,19 +57,23 @@ pipeline {
         sh 'export HTTP_PROXY="socks5://172.16.31.128:10808"; export HTTPS_PROXY="socks5://172.16.31.128:10808"'
         sh 'docker push entropypool/apollo-configservice:1.9.1'
         sh 'docker push entropypool/apollo-adminservice:1.9.1'
+        sh 'docker push entropypool/apollo-portal:1.9.1'
         sh 'unset ALL_PROXY'
         sh 'unset HTTP_PROXY; unset HTTPS_PROXY'
       }
     }
 
-    stage('Deploy apollo cluster') {
+    stage('Deploy apollo cluster and portal') {
       when {
         expression { DEPLOY_TARGET == 'true' }
       }
       steps {
-        // sh 'helm install apollo-service --namespace kube-system -f values.yaml apollo/apollo-service --repo ./charts'
-        sh 'helm uninstall apollo-service --namespace kube-system || true'
-        sh 'helm install apollo-service --namespace kube-system -f values.yaml ./charts'
+        if ( HELM_UNINSTALL == 'true' ) {
+          sh 'helm uninstall apollo-service --namespace kube-system || true'
+          sh 'helm uninstall apollo-portal --namespace kube-system || true'
+        }
+        sh 'helm install apollo-service --namespace kube-system -f values.yaml ./chart-service'
+        sh 'helm install apollo-portal --namespace kube-system -f values.yaml ./chart-portal'
       }
     }
   }
