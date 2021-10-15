@@ -88,8 +88,20 @@ pipeline {
         expression { DEPLOY_TARGET == 'true' }
       }
       steps {
+        sh 'helm repo add apollo https://www.apolloconfig.com/charts'
         sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service || helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
-        sh 'helm upgrade apollo-portal --namespace kube-system -f values.portal.yaml ./chart-portal || helm install apollo-portal --namespace kube-system -f values.portal.yaml ./chart-portal'
+        sh 'helm uninstall apollo-portal'
+        sh "helm install apollo-portal \
+    --set portaldb.host=$MYSQL_HOST \
+    --set portaldb.userName=root \
+    --set portaldb.password=$MYSQL_TMP_PASSWORD \
+    --set portaldb.service.enabled=false \
+    --set config.envs=\"dev\\,pro\" \
+    --set config.metaServers.dev=http://apollo-configservice:8080 \
+    --set config.metaServers.pro=http://apollo-configservice.kube-system:8080 \
+    --set replicaCount=1 \
+    -n kube-system \
+    ./chart-portal"
       }
     }
   }
