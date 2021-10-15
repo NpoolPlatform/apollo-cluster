@@ -7,7 +7,7 @@ configService:
     pullPolicy: IfNotPresent
 
 adminService:
-  replicaCount: 3
+  replicaCount: 1
   fullNameOverride: "apollo-adminservice"
   image:
     repository: entropypool/apollo-adminservice

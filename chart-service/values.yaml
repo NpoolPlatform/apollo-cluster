@@ -76,7 +76,7 @@ configService:
 adminService:
   name: apollo-adminservice
   fullNameOverride: ""
-  replicaCount: 2
+  replicaCount: 1
   containerPort: 8090
   image:
     repository: entropypool/apollo-adminservice
