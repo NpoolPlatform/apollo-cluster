@@ -91,72 +91,10 @@ pipeline {
         sh 'helm repo add apollo https://www.apolloconfig.com/charts'
         sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service || helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
         sh 'helm uninstall apollo-portal -n kube-system || true'
-        sh "helm install apollo-portal \
-    --set portaldb.host=$MYSQL_HOST \
-    --set portaldb.userName=root \
-    --set portaldb.password=$MYSQL_TMP_PASSWORD \
-    --set portaldb.service.enabled=false \
-    --set config.envs=\"dev\\,pro\" \
-    --set config.metaServers.dev=http://apollo-configservice:8080 \
-    --set config.metaServers.pro=http://apollo-configservice.kube-system:8080 \
-    --set replicaCount=1 \
-    -n kube-system \
-    ./chart-portal"
+        sh "helm install apollo-portal -n kube-system ./chart-portal"
       }
     }
   }
-  post('Report') {
-    fixed {
-      script {
-        sh(script: 'bash $JENKINS_HOME/wechat-templates/send_wxmsg.sh fixed')
-     }
-      script {
-        // env.ForEmailPlugin = env.WORKSPACE
-        emailext attachmentsPattern: 'TestResults\\*.trx',
-        body: '${FILE,path="$JENKINS_HOME/email-templates/success_email_tmp.html"}',
-        mimeType: 'text/html',
-        subject: currentBuild.currentResult + " : " + env.JOB_NAME,
-        to: '$DEFAULT_RECIPIENTS'
-      }
-     }
-    success {
-      script {
-        sh(script: 'bash $JENKINS_HOME/wechat-templates/send_wxmsg.sh successful')
-     }
-      script {
-        // env.ForEmailPlugin = env.WORKSPACE
-        emailext attachmentsPattern: 'TestResults\\*.trx',
-        body: '${FILE,path="$JENKINS_HOME/email-templates/success_email_tmp.html"}',
-        mimeType: 'text/html',
-        subject: currentBuild.currentResult + " : " + env.JOB_NAME,
-        to: '$DEFAULT_RECIPIENTS'
-      }
-     }
-    failure {
-      script {
-        sh(script: 'bash $JENKINS_HOME/wechat-templates/send_wxmsg.sh failure')
-     }
-      script {
-        // env.ForEmailPlugin = env.WORKSPACE
-        emailext attachmentsPattern: 'TestResults\\*.trx',
-        body: '${FILE,path="$JENKINS_HOME/email-templates/fail_email_tmp.html"}',
-        mimeType: 'text/html',
-        subject: currentBuild.currentResult + " : " + env.JOB_NAME,
-        to: '$DEFAULT_RECIPIENTS'
-      }
-     }
-    aborted {
-      script {
-        sh(script: 'bash $JENKINS_HOME/wechat-templates/send_wxmsg.sh aborted')
-     }
-      script {
-        // env.ForEmailPlugin = env.WORKSPACE
-        emailext attachmentsPattern: 'TestResults\\*.trx',
-        body: '${FILE,path="$JENKINS_HOME/email-templates/fail_email_tmp.html"}',
-        mimeType: 'text/html',
-        subject: currentBuild.currentResult + " : " + env.JOB_NAME,
-        to: '$DEFAULT_RECIPIENTS'
-      }
-     }
-  }
+
+  
 }

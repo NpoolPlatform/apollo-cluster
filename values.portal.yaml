@@ -1,7 +1,8 @@
 config:
-  envs: "default"
+  envs: "dev,pro"
   metaServers:
-    default: http://apollo-configservice:8080
+    dev: http://apollo-configservice.kube-system:8080
+    pro: http://apollo-configservice:8080
 replicaCount: 1
 ingress:
   enabled: true
