@@ -91,8 +91,8 @@ pipeline {
         expression { DEPLOY_TARGET == 'true' }
       }
       steps {
-        sh 'helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
-        sh 'helm install apollo-portal --namespace kube-system -f values.portal.yaml ./chart-portal'
+        sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
+        sh 'helm upgrade apollo-portal --namespace kube-system -f values.portal.yaml ./chart-portal'
       }
     }
   }
