@@ -46,7 +46,7 @@ pipeline {
       }
     }
 
-    stage('Release pollo image') {
+    stage('Release apollo image') {
       when {
         expression { RELEASE_TARGET == 'true' }
       }
@@ -62,6 +62,7 @@ pipeline {
       }
       steps {
         // sh 'helm install apollo-service --namespace kube-system -f values.yaml apollo/apollo-service --repo ./charts'
+        sh 'helm uninstall apollo-service --namespace kube-system || true'
         sh 'helm install apollo-service --namespace kube-system -f values.yaml ./charts'
       }
     }
