@@ -19,9 +19,10 @@ MYSQL_PORT=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/service/m
 if [ ! $? -eq 0 ]; then
   echo "FAIL TO GET MYSQL PORT"
   exit 1
+else
+  echo "debug info: $MYSQL_HOST:$MYSQL_PORT"
+  exit 1
 fi
-
-echo "current conf: $MYSQL_HOST:$MYSQL_PORT"
 
 MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
 export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloConfigDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true&user=root&password=$MYSQL_PASSWORD
