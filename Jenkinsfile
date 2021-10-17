@@ -91,7 +91,7 @@ pipeline {
         sh 'helm repo add apollo https://www.apolloconfig.com/charts'
         sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service || helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
         sh 'helm uninstall apollo-portal -n kube-system || true'
-        sh "helm install apollo-portal -n kube-system ./chart-portal"
+        sh "helm install apollo-portal -n kube-system -f values.portal.yaml ./chart-portal"
       }
     }
   }
