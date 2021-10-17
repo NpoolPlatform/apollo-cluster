@@ -59,6 +59,7 @@ pipeline {
             if [ $? -eq 0 ]; then
               break
             fi
+            sleep 5
           done
           echo "configservice done"
         '''.stripIndent())
@@ -68,6 +69,7 @@ pipeline {
             if [ $? -eq 0 ]; then
               break
             fi
+            sleep 5
           done
           echo "portal done"
         '''.stripIndent())
@@ -77,6 +79,7 @@ pipeline {
             if [ $? -eq 0 ]; then
               break
             fi
+            sleep 5
           done
           echo "adminservice done"
         '''.stripIndent())
