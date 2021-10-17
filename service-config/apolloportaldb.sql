@@ -330,14 +330,17 @@ VALUES
     (5, 'consumer.token.salt', 'someSalt', 'consumer token salt'),
     (6, 'admin.createPrivateNamespace.switch', 'true', '是否允许项目管理员创建私有namespace'),
     (7, 'configView.memberOnly.envs', 'pro', '只对项目成员显示配置信息的环境列表，多个env以英文逗号分隔'),
-    (8, 'apollo.portal.meta.servers', '{}', '各环境Meta Service列表');
+    (8, 'apollo.portal.meta.servers', '{}', '各环境Meta Service列表')
+WHERE NOT EXISTS (SELECT * FROM `ServerConfig`);
 
 
 INSERT IGNORE INTO `Users` (`Id`, `Username`, `Password`, `UserDisplayName`, `Email`, `Enabled`)
 VALUES
-	(1, 'apollo', '$2a$10$7r20uS.BQ9uBpf3Baj3uQOZvMVvB1RN3PYoKE94gtz2.WAOuiiwXS', 'apollo', 'apollo@acme.com', 1);
+	(1, 'apollo', '$2a$10$7r20uS.BQ9uBpf3Baj3uQOZvMVvB1RN3PYoKE94gtz2.WAOuiiwXS', 'apollo', 'apollo@acme.com', 1)
+WHERE NOT EXISTS (SELECT * FROM `Users`);
 
-INSERT IGNORE INTO `Authorities` (`Id`, `Username`, `Authority`) VALUES (1, 'apollo', 'ROLE_user');
+INSERT IGNORE INTO `Authorities` (`Id`, `Username`, `Authority`) VALUES (1, 'apollo', 'ROLE_user')
+WHERE NOT EXISTS (SELECT * FROM `Authorities`);
 
 -- spring session (https://github.com/spring-projects/spring-session/blob/faee8f1bdb8822a5653a81eba838dddf224d92d6/spring-session-jdbc/src/main/resources/org/springframework/session/jdbc/schema-mysql.sql)
 CREATE TABLE IF NOT EXISTS SPRING_SESSION (
