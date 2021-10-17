@@ -22,5 +22,5 @@ ingress:
       paths:
         - /
 env:
-  DEBUG_MODE: "override"
-  MYSQL_HOST: "172.20.1.155"
+  DEBUG_MODE: "none"
+  MYSQL_HOST: ""
