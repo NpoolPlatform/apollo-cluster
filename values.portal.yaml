@@ -1,8 +1,7 @@
 config:
-  envs: "dev,pro"
+  envs: "${TARGET_ENV}"
   metaServers:
-    dev: http://apollo-configservice.kube-system:8080
-    pro: http://apollo-configservice:8080
+    ${TARGET_ENV}: http://apollo-configservice.kube-system:8080
 replicaCount: 1
 ingress:
   enabled: true
@@ -21,6 +20,3 @@ ingress:
     - host: "apollo-portal.internal-devops.development.npool.top"
       paths:
         - /
-env:
-  DEBUG_MODE: "none"
-  MYSQL_HOST: ""
