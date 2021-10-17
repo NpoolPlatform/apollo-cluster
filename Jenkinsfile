@@ -93,7 +93,7 @@ pipeline {
       steps {
         sh 'helm repo add apollo https://www.apolloconfig.com/charts'
         sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service || helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
-        sh 'TARGET_ENV=$TARGET_ENV envsubst values.portal.yaml > .values.portal.yaml'
+        sh 'TARGET_ENV=$TARGET_ENV envsubst < values.portal.yaml > .values.portal.yaml'
         sh 'helm upgrade apollo-portal --namespace kube-system -f .values.portal.yaml ./chart-portal || helm install apollo-portal -n kube-system -f .values.portal.yaml ./chart-portal'
         sh 'rm -rf .values.portal.yaml'
       }
