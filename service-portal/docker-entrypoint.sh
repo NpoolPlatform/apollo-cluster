@@ -3,13 +3,13 @@
 export SPRING_DATASOURCE_USERNAME="root"
 export SPRING_DATASOURCE_PASSWORD="$MYSQL_PASSWORD"
 
-MYSQL_HOST=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/health/service/name/mysql.npool.top | jq .Address`
+MYSQL_HOST=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`
 if [ ! $? -eq 0 ]; then
   echo "FAIL TO GET MYSQL HOST"
   exit 1
 fi
 
-MYSQL_PORT=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/health/service/name/mysql.npool.top | jq .Port`
+MYSQL_PORT=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`
 if [ ! $? -eq 0 ]; then
   echo "FAIL TO GET MYSQL PORT"
   exit 1
