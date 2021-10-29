@@ -86,6 +86,15 @@ pipeline {
       }
     }
 
+    stage('Override values.portal.yaml') {
+      steps {
+        sh 'echo "portaldb:\n" >> ./values.portal.yaml'
+        sh "echo \"  host: \"mysql.kube-system.svc.cluster.local\"\n\" >> ./values.portal.yaml"
+        sh "echo \"  userName: \"root\"\n\" >> ./values.portal.yaml"
+        sh "echo \"  password: \"$MYSQL_PASSWORD\"\n\" >> ./values.portal.yaml"
+      }
+    }
+
     stage('Deploy apollo cluster and portal') {
       when {
         expression { DEPLOY_TARGET == 'true' }
