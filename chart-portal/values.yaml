@@ -20,7 +20,7 @@ containerPort: 8070
 image:
   repository: entropypool/apollo-portal
   tag: "1.9.1"
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 imagePullSecrets: []
 service:
   fullNameOverride: ""
@@ -68,7 +68,7 @@ portaldb:
   host: "mysql"
   port: 3306
   dbName: ApolloPortalDB
-  userName: ""
+  userName: "root"
   password: ""
   connectionStringProperties: characterEncoding=utf8&useSSL=false
   service:
