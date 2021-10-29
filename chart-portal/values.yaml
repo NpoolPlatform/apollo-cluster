@@ -20,7 +20,7 @@ containerPort: 8070
 image:
   repository: entropypool/apollo-portal
   tag: "1.9.1"
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 imagePullSecrets: []
 service:
   fullNameOverride: ""
