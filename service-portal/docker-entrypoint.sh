@@ -27,4 +27,6 @@ echo "spring.datasource.url = $SPRING_DATASOURCE_URL\n" >> /apollo-portal/config
 echo "spring.datasource.username = $SPRING_DATASOURCE_USERNAME\n" >> /apollo-portal/config/application-github.properties
 echo "spring.datasource.password = $SPRING_DATASOURCE_PASSWORD\n" >> /apollo-portal/config/application-github.properties
 
+cat /apollo-portal/config/application-github.properties
+
 /apollo-portal/scripts/startup.sh $@
