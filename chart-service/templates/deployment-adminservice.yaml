@@ -22,9 +22,9 @@ metadata:
   name: {{ $adminServiceFullName }}
 data:
   application-github.properties: |
-    # spring.datasource.url = jdbc:mysql://{{include "apollo.configdb.serviceName" .}}:{{include "apollo.configdb.servicePort" .}}/{{ .Values.configdb.dbName }}{{ if .Values.configdb.connectionStringProperties }}?{{ .Values.configdb.connectionStringProperties }}{{ end }}
-    # spring.datasource.username = {{ .Values.configdb.userName }}
-    # spring.datasource.password = {{ .Values.configdb.password }}
+    spring.datasource.url = jdbc:mysql://{{include "apollo.configdb.serviceName" .}}:{{include "apollo.configdb.servicePort" .}}/{{ .Values.configdb.dbName }}{{ if .Values.configdb.connectionStringProperties }}?{{ .Values.configdb.connectionStringProperties }}{{ end }}
+    spring.datasource.username = {{ .Values.configdb.userName }}
+    spring.datasource.password = {{ .Values.configdb.password }}
     {{- if .Values.adminService.config.contextPath }}
     server.servlet.context-path = {{ .Values.adminService.config.contextPath }}
     {{- end }}
