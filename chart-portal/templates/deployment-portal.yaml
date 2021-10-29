@@ -25,7 +25,6 @@ data:
     spring.datasource.url = jdbc:mysql://{{include "apollo.portaldb.serviceName" .}}:{{include "apollo.portaldb.servicePort" .}}/{{ .Values.portaldb.dbName }}{{ if .Values.portaldb.connectionStringProperties }}?{{ .Values.portaldb.connectionStringProperties }}{{ end }}
     spring.datasource.username = {{ .Values.portaldb.userName }}
     spring.datasource.password = {{ .Values.portaldb.password }}
-    debug = true
     {{- if .Values.config.envs }}
     apollo.portal.envs = {{ .Values.config.envs }}
     {{- end }}
