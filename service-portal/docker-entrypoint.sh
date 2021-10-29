@@ -17,6 +17,8 @@ else
   echo "debug info: $MYSQL_HOST:$MYSQL_PORT"
 fi
 
+echo "" > /apollo-portal/config/application-github.properties
+
 MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
 export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloPortalDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true
 
