@@ -65,7 +65,7 @@ config:
 
 portaldb:
   name: apollo-portaldb
-  host: "mysql"
+  host: ""
   port: 3306
   dbName: ApolloPortalDB
   userName: "root"
