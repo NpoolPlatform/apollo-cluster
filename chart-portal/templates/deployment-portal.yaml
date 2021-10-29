@@ -22,9 +22,6 @@ metadata:
   name: {{ $portalFullName }}
 data:
   application-github.properties: |
-    spring.datasource.url = 
-    spring.datasource.username = 
-    spring.datasource.password = 
     {{- if .Values.config.envs }}
     apollo.portal.envs = {{ .Values.config.envs }}
     {{- end }}
