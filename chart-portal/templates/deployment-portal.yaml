@@ -119,7 +119,6 @@ spec:
             - name: {{ $key }}
               value: {{ $value }}
           {{- end }}
-          command: ["sleep", "10000000000000"]
           volumeMounts:
             - name: configmap-{{ $portalFullName }}
               mountPath: /apollo-portal/config/application-github.properties
