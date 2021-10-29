@@ -65,10 +65,10 @@ config:
 
 portaldb:
   name: apollo-portaldb
-  host: "do_not_edit_here"
+  host: "mysql"
   port: 3306
   dbName: ApolloPortalDB
-  userName: "do_not_edit_here"
+  userName: "root"
   password: ""
   connectionStringProperties: characterEncoding=utf8&useSSL=false
   service:
