@@ -86,16 +86,6 @@ pipeline {
       }
     }
 
-    stage('Override values.portal.yaml') {
-      steps {
-        sh "MYSQL_HOST=`curl http://$ENV_CONSUL_HOST:$ENV_CONSUL_PORT/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`"
-        sh 'echo "portaldb:\n" >> ./values.portal.yaml'
-        sh "echo \"  host: \"$MYSQL_HOST\"\n\" >> ./values.portal.yaml"
-        sh "echo \"  userName: \"root\"\n\" >> ./values.portal.yaml"
-        sh "echo \"  password: \"$MYSQL_PASSWORD\"\n\" >> ./values.portal.yaml"
-      }
-    }
-
     stage('Deploy apollo cluster and portal') {
       when {
         expression { DEPLOY_TARGET == 'true' }
