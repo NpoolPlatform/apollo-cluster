@@ -100,7 +100,7 @@ pipeline {
         expression { DEPLOY_TARGET == 'true' }
       }
       steps {
-        sh "export MYSQL_HOST=`curl http://${ENV_CONSUL_HOST}:${ENV_CONSUL_PORT}/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`"
+        sh "export MYSQL_HOST=`curl http://$ENV_CONSUL_HOST:$ENV_CONSUL_PORT/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`"
         sh 'echo "portaldb:\n" >> ./values.portal.yaml'
         sh "echo \"  host: \"$MYSQL_HOST\"\n\" >> ./values.portal.yaml"
         sh "echo \"  userName: \"root\"\n\" >> ./values.portal.yaml"
