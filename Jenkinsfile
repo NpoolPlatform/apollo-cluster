@@ -86,16 +86,7 @@ pipeline {
       }
     }
 
-    stage('Deploy apollo cluster') {
-      when {
-        expression { DEPLOY_TARGET == 'true' }
-      }
-      steps {
-        sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service || helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
-      }
-    }
-
-    stage('Deploy apollo portal') {
+    stage('Deploy apollo cluster and portal') {
       when {
         expression { DEPLOY_TARGET == 'true' }
       }
@@ -106,6 +97,7 @@ pipeline {
         sh "echo \"  userName: \"root\"\n\" >> ./values.portal.yaml"
         sh "echo \"  password: \"$MYSQL_PASSWORD\"\n\" >> ./values.portal.yaml"
         sh 'TARGET_ENV=$TARGET_ENV envsubst < values.portal.yaml > .values.portal.yaml'
+        sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service || helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
         sh 'helm upgrade apollo-portal --namespace kube-system -f .values.portal.yaml ./chart-portal || helm install apollo-portal -n kube-system -f .values.portal.yaml ./chart-portal'
         sh 'rm -rf .values.portal.yaml'
       }
