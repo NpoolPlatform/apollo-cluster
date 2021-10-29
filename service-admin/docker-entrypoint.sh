@@ -24,4 +24,6 @@ fi
 MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
 export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloConfigDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true
 
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.url=$SPRING_DATASOURCE_URL -Dspring.datasource.username=$SPRING_DATASOURCE_USERNAME -Dspring.datasource.password=$SPRING_DATASOURCE_PASSWORD"
+
 /apollo-adminservice/scripts/startup.sh $@
