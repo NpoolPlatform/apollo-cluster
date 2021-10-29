@@ -18,7 +18,7 @@ configdb:
   host: "mysql"
   port: 3306
   dbName: ApolloConfigDB
-  userName: "do_not_edit_here"
+  userName: ""
   password: ""
   connectionStringProperties: characterEncoding=utf8
   service:

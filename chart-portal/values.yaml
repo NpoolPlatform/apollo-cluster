@@ -65,10 +65,10 @@ config:
 
 portaldb:
   name: apollo-portaldb
-  host: "overrided_by_docker_entrypoint"
+  host: "mysql"
   port: 3306
   dbName: ApolloPortalDB
-  userName: "overrided_by_docker_entrypoint"
+  userName: ""
   password: ""
   connectionStringProperties: characterEncoding=utf8&useSSL=false
   service:
