@@ -89,7 +89,8 @@ pipeline {
     stage('Override values.portal.yaml') {
       steps {
         sh 'echo "portaldb:\n" >> ./values.portal.yaml'
-        sh 'echo "  host: \"172.20.1.239\"\n" >> ./values.portal.yaml'
+
+        sh "echo \"  host: `curl http://$ENV_CONSUL_HOST:$ENV_CONSUL_PORT/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`\" >> ./values.portal.yaml"
         sh 'echo "  userName: root\n" >> ./values.portal.yaml'
         sh 'echo "  password: \"$MYSQL_PASSWORD\"\n" >> ./values.portal.yaml'
       }
