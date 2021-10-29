@@ -86,15 +86,6 @@ pipeline {
       }
     }
 
-    stage('Override values.portal.yaml') {
-      steps {
-        sh 'echo "portaldb:\n" >> ./values.portal.yaml'
-        sh "echo \"  host: `curl http://consul-server.kube-system.svc.cluster.local:8500/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`\n\" >> ./values.portal.yaml"
-        sh 'echo "  userName: root\n" >> ./values.portal.yaml'
-        sh "echo \"  password: $MYSQL_PASSWORD\n\" >> ./values.portal.yaml"
-      }
-    }
-
     stage('Deploy apollo cluster and portal') {
       when {
         expression { DEPLOY_TARGET == 'true' }

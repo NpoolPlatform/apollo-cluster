@@ -22,4 +22,9 @@ echo "" > /apollo-portal/config/application-github.properties
 MYSQL_HOST=`echo $MYSQL_HOST | sed 's/"//g'`
 export SPRING_DATASOURCE_URL=jdbc:mysql://$MYSQL_HOST:$MYSQL_PORT/ApolloPortalDB?characterEncoding=utf8&createDatabaseIfNotExist=true&useSSL=false&autoReconnect=true&useUnicode=true
 
+
+echo "spring.datasource.url = $SPRING_DATASOURCE_URL\n" >> /apollo-portal/config/application-github.properties
+echo "spring.datasource.username = $SPRING_DATASOURCE_USERNAME\n" >> /apollo-portal/config/application-github.properties
+echo "spring.datasource.password = $SPRING_DATASOURCE_PASSWORD\n" >> /apollo-portal/config/application-github.properties
+
 /apollo-portal/scripts/startup.sh $@
