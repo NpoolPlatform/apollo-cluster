@@ -86,18 +86,24 @@ pipeline {
       }
     }
 
+    stage('Override values.portal.yaml') {
+      steps {
+        sh "MYSQL_HOST=`curl http://$ENV_CONSUL_HOST:$ENV_CONSUL_PORT/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`"
+        sh 'echo "portaldb:\n" >> ./values.portal.yaml'
+        sh "echo \"  host: \"$MYSQL_HOST\"\n\" >> ./values.portal.yaml"
+        sh "echo \"  userName: \"root\"\n\" >> ./values.portal.yaml"
+        sh "echo \"  password: \"$MYSQL_PASSWORD\"\n\" >> ./values.portal.yaml"
+      }
+    }
+
     stage('Deploy apollo cluster and portal') {
       when {
         expression { DEPLOY_TARGET == 'true' }
       }
       steps {
-        sh "export MYSQL_HOST=`curl http://$ENV_CONSUL_HOST:$ENV_CONSUL_PORT/v1/agent/health/service/name/mysql.npool.top | jq '.[0] | .Service | .Address'`"
-        sh 'echo "portaldb:\n" >> ./values.portal.yaml'
-        sh "echo \"  host: \"$MYSQL_HOST\"\n\" >> ./values.portal.yaml"
-        sh "echo \"  userName: \"root\"\n\" >> ./values.portal.yaml"
-        sh "echo \"  password: \"$MYSQL_PASSWORD\"\n\" >> ./values.portal.yaml"
-        sh 'TARGET_ENV=$TARGET_ENV envsubst < values.portal.yaml > .values.portal.yaml'
+        sh 'helm repo add apollo https://www.apolloconfig.com/charts'
         sh 'helm upgrade apollo-service --namespace kube-system -f values.service.yaml ./chart-service || helm install apollo-service --namespace kube-system -f values.service.yaml ./chart-service'
+        sh 'TARGET_ENV=$TARGET_ENV envsubst < values.portal.yaml > .values.portal.yaml'
         sh 'helm upgrade apollo-portal --namespace kube-system -f .values.portal.yaml ./chart-portal || helm install apollo-portal -n kube-system -f .values.portal.yaml ./chart-portal'
         sh 'rm -rf .values.portal.yaml'
       }
