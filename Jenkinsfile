@@ -98,6 +98,17 @@ pipeline {
         sh 'rm -rf .values.portal.yaml'
       }
     }
+
+    stage('Config apollo') {
+      when {
+        expression { CONFIG_TARGET == 'true' }
+      }
+      steps {
+        sh 'rm .apollo-base-config -rf'
+        sh 'git clone https://github.com/NpoolPlatform/apollo-base-config.git .apollo-base-config'
+        sh 'cd .apollo-base-config; ./apollo-appid-config.sh $APP_ID $TARGET_ENV'
+      }
+    }
   }
   post('Report') {
     fixed {
