@@ -39,7 +39,6 @@ pipeline {
         expression { BUILD_TARGET == 'true' }
       }
       steps {
-        sh 'mkdir -p .docker-tmp; cp /usr/bin/consul .docker-tmp'
         sh(returnStdout: true, script: '''
           images=`docker images | grep entropypool | grep apollo | awk '{ print $3 }'`
           for image in $images; do
