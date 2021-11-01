@@ -39,6 +39,13 @@ pipeline {
         expression { BUILD_TARGET == 'true' }
       }
       steps {
+        sh 'mkdir -p .docker-tmp; cp /usr/bin/consul .docker-tmp'
+        sh(returnStdout: true, script: '''
+          images=`docker images | grep entropypool | grep apollo | awk '{ print $3 }'`
+          for image in $images; do
+            docker rmi $image
+          done
+        '''.stripIndent())
         sh 'mkdir -p service-config/.docker-tmp; cp /usr/bin/consul service-config/.docker-tmp'
         sh 'cd service-config; docker build -t entropypool/apollo-configservice:1.9.1 .'
         sh 'mkdir -p service-admin/.docker-tmp; cp /usr/bin/consul service-admin/.docker-tmp'
