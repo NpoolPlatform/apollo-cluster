@@ -17,6 +17,6 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     kubernetes.io/ingress.class: "devops-vpn-nginx-internal"
   hosts:
-    - host: "apollo-portal.internal-devops.development.npool.top"
+    - host: "apollo-portal.internal-devops.${TARGET_ENV}.npool.top"
       paths:
         - /
