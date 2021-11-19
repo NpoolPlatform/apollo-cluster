@@ -60,6 +60,7 @@ pipeline {
       }
       steps {
         sh(returnStdout: true, script: '''
+          set +e
           while true; do
             docker push entropypool/apollo-configservice:1.9.1
             if [ $? -eq 0 ]; then
@@ -67,9 +68,6 @@ pipeline {
             fi
             sleep 5
           done
-          echo "configservice done"
-        '''.stripIndent())
-        sh(returnStdout: true, script: '''
           while true; do
             docker push entropypool/apollo-portal:1.9.1
             if [ $? -eq 0 ]; then
@@ -77,9 +75,6 @@ pipeline {
             fi
             sleep 5
           done
-          echo "portal done"
-        '''.stripIndent())
-        sh(returnStdout: true, script: '''
           while true; do
             docker push entropypool/apollo-adminservice:1.9.1
             if [ $? -eq 0 ]; then
@@ -87,7 +82,7 @@ pipeline {
             fi
             sleep 5
           done
-          echo "adminservice done"
+          set -e
         '''.stripIndent())
       }
     }
