@@ -34,7 +34,7 @@ configService:
   replicaCount: 2
   containerPort: 8080
   image:
-    repository: entropypool/apollo-configservice
+    repository: uhub.service.ucloud.cn/entropypool/apollo-configservice
     tag: "1.9.1"
     pullPolicy: Always
   imagePullSecrets: []
@@ -79,7 +79,7 @@ adminService:
   replicaCount: 1
   containerPort: 8090
   image:
-    repository: entropypool/apollo-adminservice
+    repository: uhub.service.ucloud.cn/entropypool/apollo-adminservice
     tag: "1.9.1"
     pullPolicy: Always
   imagePullSecrets: []
