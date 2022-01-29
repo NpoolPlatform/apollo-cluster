@@ -6,16 +6,14 @@ replicaCount: 1
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/affinity-mode: "persistent"
-    nginx.ingress.kubernetes.io/session-cookie-conditional-samesite-none: "true"
-    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
-    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
-    nginx.org/websocket-services: "apolloportal"
-    nginx.com/sticky-cookie-services: "serviceName=apolloportal srv_id expires=1h path=/"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    kubernetes.io/ingress.class: "devops-vpn-nginx-internal"
+    kubernetes.io/ingress.class: "traefik-internet-vpn"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure, web
+    traefik.ingress.kubernetes.io/router.middlewares: kube-system-common-headers@kubernetescrd
+#    nginx.ingress.kubernetes.io/affinity: "cookie"
+#    nginx.ingress.kubernetes.io/affinity-mode: "persistent"
+#    nginx.ingress.kubernetes.io/session-cookie-conditional-samesite-none: "true"
+#    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+#    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
   hosts:
     - host: "apollo-portal.internal-devops.${TARGET_ENV}.npool.top"
       paths:
