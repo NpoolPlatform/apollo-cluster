@@ -2,7 +2,7 @@ configService:
   replicaCount: 3
   fullNameOverride: "apollo-configservice"
   image:
-    repository: entropypool/apollo-configservice
+    repository: uhub.service.ucloud.cn/entropypool/apollo-configservice
     tag: 1.9.1
     pullPolicy: IfNotPresent
 
@@ -10,7 +10,7 @@ adminService:
   replicaCount: 1
   fullNameOverride: "apollo-adminservice"
   image:
-    repository: entropypool/apollo-adminservice
+    repository: uhub.service.ucloud.cn/entropypool/apollo-adminservice
     tag: 1.9.1
     pullPolicy: IfNotPresent
 
