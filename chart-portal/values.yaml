@@ -18,7 +18,7 @@ fullNameOverride: ""
 replicaCount: 1
 containerPort: 8070
 image:
-  repository: entropypool/apollo-portal
+  repository: uhub.service.ucloud.cn/entropypool/apollo-portal
   tag: "1.9.1"
   pullPolicy: Always
 imagePullSecrets: []
