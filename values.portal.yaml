@@ -15,6 +15,6 @@ ingress:
 #    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
 #    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
   hosts:
-    - host: "apollo-portal.internal-devops.${TARGET_ENV}.npool.top"
+    - host: "apollo-portal.${TARGET_ENV}.npool.top"
       paths:
         - /
