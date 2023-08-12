@@ -135,7 +135,7 @@ fi
 # For Docker environment, start in foreground mode
 if [[ -n "$APOLLO_RUN_MODE" ]] && [[ "$APOLLO_RUN_MODE" == "Docker" ]]; then
     exec $javaexe -Dsun.misc.URLClassPath.disableJarChecking=true $JAVA_OPTS -jar $PATH_TO_JAR \
-	--spring.datasource.url=$SPRING_DATASOURCE_URL --spring.datasource.username=$SPRING_DATASOURCE_USERNAME --spring.datasource.password=$SPRING_DATASOURCE_PASSWORD --spring.datasource.hikari.max-lifetime=180000 --spring.datasource.hikari.maximum-pool-size=10
+	--spring.datasource.url=$SPRING_DATASOURCE_URL --spring.datasource.username=$SPRING_DATASOURCE_USERNAME --spring.datasource.password=$SPRING_DATASOURCE_PASSWORD --spring.datasource.hikari.max-lifetime=180000 --spring.datasource.hikari.maximum-pool-size=4
 else
     if [[ -f $SERVICE_NAME".jar" ]]; then
       rm -rf $SERVICE_NAME".jar"
