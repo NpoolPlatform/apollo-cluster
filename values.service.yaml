@@ -4,7 +4,7 @@ configService:
   image:
     repository: uhub.service.ucloud.cn/entropypool/apollo-configservice
     tag: 1.9.1.1
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
 adminService:
   replicaCount: 1
@@ -12,7 +12,7 @@ adminService:
   image:
     repository: uhub.service.ucloud.cn/entropypool/apollo-adminservice
     tag: 1.9.1.1
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
 configdb:
   connectionStringProperties: characterEncoding=utf8&useSSL=false
