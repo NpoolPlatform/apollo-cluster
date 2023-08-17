@@ -3,7 +3,7 @@ configService:
   fullNameOverride: "apollo-configservice"
   image:
     repository: uhub.service.ucloud.cn/entropypool/apollo-configservice
-    tag: 1.9.1.1
+    tag: 1.9.1.2
     pullPolicy: Always
 
 adminService:
@@ -11,7 +11,7 @@ adminService:
   fullNameOverride: "apollo-adminservice"
   image:
     repository: uhub.service.ucloud.cn/entropypool/apollo-adminservice
-    tag: 1.9.1.1
+    tag: 1.9.1.2
     pullPolicy: Always
 
 configdb:

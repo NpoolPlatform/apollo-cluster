@@ -46,11 +46,11 @@ pipeline {
           done
         '''.stripIndent())
         sh 'mkdir -p service-config/.docker-tmp; cp /usr/bin/consul service-config/.docker-tmp'
-        sh 'cd service-config; docker build -t uhub.service.ucloud.cn/entropypool/apollo-configservice:1.9.1.1 .'
+        sh 'cd service-config; docker build -t uhub.service.ucloud.cn/entropypool/apollo-configservice:1.9.1.2 .'
         sh 'mkdir -p service-admin/.docker-tmp; cp /usr/bin/consul service-admin/.docker-tmp'
-        sh 'cd service-admin; docker build -t uhub.service.ucloud.cn/entropypool/apollo-adminservice:1.9.1.1 .'
+        sh 'cd service-admin; docker build -t uhub.service.ucloud.cn/entropypool/apollo-adminservice:1.9.1.2 .'
         sh 'mkdir -p service-portal/.docker-tmp; cp /usr/bin/consul service-portal/.docker-tmp'
-        sh 'cd service-portal; docker build -t uhub.service.ucloud.cn/entropypool/apollo-portal:1.9.1.1 .'
+        sh 'cd service-portal; docker build -t uhub.service.ucloud.cn/entropypool/apollo-portal:1.9.1.2 .'
       }
     }
 
@@ -62,21 +62,21 @@ pipeline {
         sh(returnStdout: true, script: '''
           set +e
           while true; do
-            docker push uhub.service.ucloud.cn/entropypool/apollo-configservice:1.9.1.1
+            docker push uhub.service.ucloud.cn/entropypool/apollo-configservice:1.9.1.2
             if [ $? -eq 0 ]; then
               break
             fi
             sleep 5
           done
           while true; do
-            docker push uhub.service.ucloud.cn/entropypool/apollo-portal:1.9.1.1
+            docker push uhub.service.ucloud.cn/entropypool/apollo-portal:1.9.1.2
             if [ $? -eq 0 ]; then
               break
             fi
             sleep 5
           done
           while true; do
-            docker push uhub.service.ucloud.cn/entropypool/apollo-adminservice:1.9.1.1
+            docker push uhub.service.ucloud.cn/entropypool/apollo-adminservice:1.9.1.2
             if [ $? -eq 0 ]; then
               break
             fi
