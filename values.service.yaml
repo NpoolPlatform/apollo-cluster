@@ -15,4 +15,8 @@ adminService:
     pullPolicy: Always
 
 configdb:
-  connectionStringProperties: characterEncoding=utf8&useSSL=false
+  connectionStringProperties: >
+    characterEncoding=utf8
+    &useSSL=false
+    &allowPublicKeyRetrieval=true
+
